@@ -9,17 +9,17 @@ local test_ext = {
   lua = ".test",
   typescript = ".spec",
   typescriptreact = ".spec", -- this is weird
-};
+}
 
 local M = {}
 
 function M.guess_type(filename)
-  local type = vim.filetype.match({ filename = filename })
+  local type = vim.filetype.match({ filename = filename, })
   if type ~= "" and type ~= nil then
     return type
   end
 
-  local tokens = vim.split(filename, ".", { plain = true, trimempty = true })
+  local tokens = vim.split(filename, ".", { plain = true, trimempty = true, })
   return extratypes[tokens[#tokens]]
 end
 
@@ -42,12 +42,9 @@ function M.open_test_file(opt)
     edit_file = test_name_matches[1]
   end
 
-  print('found', vim.inspect(edit_file))
-
   -- TOOD: will need to handle multiple file names or when the file doesn't exist
   vim.cmd.vnew()
   vim.cmd.e(edit_file)
 end
 
 return M
-
