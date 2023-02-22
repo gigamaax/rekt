@@ -1,3 +1,5 @@
+local utils = require('rekt.utils')
+
 local extratypes = {
   ts = "typescript",
   tsx = "typescript",
@@ -11,7 +13,23 @@ local test_ext = {
   typescriptreact = ".spec", -- this is weird
 }
 
+---@class RektConfig
+local default_config = {
+  ---@type 'split' | 'buffer'
+  open_type = "split",
+}
+
+
 local M = {}
+
+M.config = default_config
+
+---@param opt RektConfig | nil
+function M.setup(opt)
+  if opt ~= nil then
+    M.config = opt
+  end
+end
 
 function M.guess_type(filename)
   local type = vim.filetype.match({ filename = filename, })
@@ -42,9 +60,7 @@ function M.open_test_file(opt)
     edit_file = test_name_matches[1]
   end
 
-  -- TOOD: will need to handle multiple file names or when the file doesn't exist
-  vim.cmd.vnew()
-  vim.cmd.e(edit_file)
+  utils.edit_file(M.config, edit_file)
 end
 
 return M
