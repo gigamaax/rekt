@@ -33,6 +33,18 @@ function M.make_test_name(filename)
   return test_name
 end
 
+---@param options string[]
+---@return string[]
+function M.build_choice_list(options)
+  -- FIXME: should there be an option to create a new file?
+  local choices = { "Select a file", }
+  for index, choice in ipairs(options) do
+    table.insert(choices, index .. ". " .. choice)
+  end
+
+  return choices
+end
+
 ---@param config RektSplitConfig | nil
 ---@param file string
 function M.edit_file(config, file)

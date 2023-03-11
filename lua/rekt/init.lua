@@ -25,16 +25,26 @@ function M.open_test_file()
   local basename = vim.fs.basename(filename)
 
   local test_name = utils.make_test_name(basename)
-  local test_name_matches = vim.fs.find(test_name)
+  local test_name_matches = vim.fs.find(test_name, { limit = math.huge })
 
-  local edit_file
+  local edit_file = nil
   if #test_name_matches == 0 then
     edit_file = vim.fs.dirname(filename) .. "/" .. test_name
-  else
+  elseif #test_name_matches == 1 then
     edit_file = test_name_matches[1]
+  else
+    local choices = utils.build_choice_list(test_name_matches)
+    local choice = vim.fn.inputlist(choices)
+    if choice == 0 then
+      edit_file = nil
+    else
+      edit_file = test_name_matches[choice]
+    end
   end
 
-  utils.edit_file(M.config.split_options, edit_file)
+  if edit_file ~= nil then
+    utils.edit_file(M.config.split_options, edit_file)
+  end
 end
 
 return M
