@@ -20,31 +20,26 @@ function M.setup(opt)
   end
 end
 
-function M.open_test_file()
+---@param from_path string The path to start searching deafults to same directory
+function M.open_test_file(from_path)
   local filename = vim.api.nvim_buf_get_name(0)
   local basename = vim.fs.basename(filename)
 
-  local test_name = utils.make_test_name(basename)
-  local test_name_matches = vim.fs.find(test_name, { limit = math.huge })
+  from_path = from_path or vim.fs.dirname(filename)
+  local edit_file = string.format("%s/%s", from_path, utils.make_test_name(basename))
 
-  local edit_file = nil
-  if #test_name_matches == 0 then
-    edit_file = vim.fs.dirname(filename) .. "/" .. test_name
-  elseif #test_name_matches == 1 then
-    edit_file = test_name_matches[1]
-  else
-    local choices = utils.build_choice_list(test_name_matches)
-    local choice = vim.fn.inputlist(choices)
-    if choice == 0 then
-      edit_file = nil
-    else
-      edit_file = test_name_matches[choice]
-    end
-  end
+  utils.edit_file(M.config.split_options, edit_file)
+end
 
-  if edit_file ~= nil then
-    utils.edit_file(M.config.split_options, edit_file)
-  end
+---@param from_path string The path to start searching deafults to same directory
+function M.open_source_file(from_path)
+  local filename = vim.api.nvim_buf_get_name(0)
+  local basename = vim.fs.basename(filename)
+
+  from_path = from_path or vim.fs.dirname(filename)
+  local edit_file = string.format("%s/%s", from_path, utils.make_source_name(basename))
+
+  utils.edit_file(M.config.split_options, edit_file)
 end
 
 return M

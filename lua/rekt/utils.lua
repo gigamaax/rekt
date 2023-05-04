@@ -29,20 +29,14 @@ end
 ---@return string
 function M.make_test_name(filename)
   local filetype = M.guess_type(filename)
-  local test_name = string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. test_ext[filetype] .. ".%3")
-  return test_name
+  return (string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. test_ext[filetype] .. ".%3"))
 end
 
----@param options string[]
----@return string[]
-function M.build_choice_list(options)
-  -- FIXME: should there be an option to create a new file?
-  local choices = { "Select a file", }
-  for index, choice in ipairs(options) do
-    table.insert(choices, index .. ". " .. choice)
-  end
-
-  return choices
+---@param filename string
+---@return string
+function M.make_source_name(filename)
+  local filetype = M.guess_type(filename)
+  return (string.gsub(filename, "(.*)" .. test_ext[filetype] .. ".(%w+)", "%1.%2"))
 end
 
 ---@param config RektSplitConfig | nil

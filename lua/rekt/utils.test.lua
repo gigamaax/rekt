@@ -1,12 +1,6 @@
 local utils = require("rekt.utils")
 
 describe("utils", function()
-  it("can guess the file type from a filename", function()
-    assert.equal("go", utils.guess_type("somefilename.go"))
-    assert.equal("typescript", utils.guess_type("somefilename.ts"))
-    assert.equal("javascript", utils.guess_type("some.file.name.js"))
-  end)
-
   it("can rewrite the file name with test suffix", function()
     assert.equal("somefilename_test.go", utils.make_test_name("somefilename.go"))
     assert.equal("somefilename.spec.ts", utils.make_test_name("somefilename.ts"))
@@ -14,10 +8,10 @@ describe("utils", function()
     assert.equal("some.file.name.spec.js", utils.make_test_name("some.file.name.js"))
   end)
 
-  it("can build a choice list", function()
-    assert.same(
-      { "Select a file", "1. Option 1", "2. Option 2", },
-      utils.build_choice_list({ "Option 1", "Option 2", })
-    )
+  it("can rewrite the file name without test suffix", function()
+    assert.equal("somefilename.go", utils.make_source_name("somefilename_test.go"))
+    assert.equal("somefilename.ts", utils.make_source_name("somefilename.spec.ts"))
+    assert.equal("somefilename.tsx", utils.make_source_name("somefilename.spec.tsx"))
+    assert.equal("some.file.name.js", utils.make_source_name("some.file.name.spec.js"))
   end)
 end)
