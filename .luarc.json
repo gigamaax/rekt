@@ -1,12 +1,6 @@
 {
-    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
-    "description": "rekt project configs",
-    "diagnostics": {
-        "enable": true,
-        "globals": [
-            "vim",
-            "describe",
-            "it"
-        ]
-    }
+	"workspace.library": [
+		"${3rd}/busted/library",
+		"${3rd}/luassert/library"
+	]
 }
