@@ -20,7 +20,7 @@ The default behavior is to open new buffers vertically
 ### Default options
 ```lua
 {
-	open = "vsplit" -- @type "vslip" | "hsplit" | "buffer"
+	open = "vsplit" -- @type "buffer" | "horizontal" | "vertical"
 }
 ```
 
@@ -28,8 +28,8 @@ The default behavior is to open new buffers vertically
 Controls how to open the file
 
 - `buffer`: opens in a new buffer
-- `hsplit`: opens in a new horizontal split
-- `vsplit`: opens in a new vertical split
+- `horizontal`: opens in a new horizontal split
+- `vertical`: opens in a new vertical split
 
 ## API
 
