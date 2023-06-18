@@ -39,15 +39,13 @@ function M.make_source_name(filename)
 	return (string.gsub(filename, "(.*)" .. test_ext[filetype] .. ".(%w+)", "%1.%2"))
 end
 
----@param config RektSplitConfig | nil
+---@param config RektConfig
 ---@param file string
 function M.edit_file(config, file)
-	if config ~= nil then
-		if config.direction == "vsplit" then
-			vim.cmd.vsplit()
-		else
-			vim.cmd.split()
-		end
+	if config.open == "horizontal" then
+		vim.cmd.split()
+	elseif config.open == "vertical" then
+		vim.cmd.vsplit()
 	end
 
 	-- TOOD: will need to handle multiple file names or when the file doesn't exist
