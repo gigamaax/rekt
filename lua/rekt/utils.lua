@@ -3,14 +3,6 @@ local extratypes = {
 	tsx = "typescript",
 }
 
-local test_ext = {
-	go = "_test",
-	javascript = ".spec",
-	lua = ".test",
-	typescript = ".spec",
-	typescriptreact = ".spec", -- this is weird
-}
-
 local M = {}
 
 ---@param filename string
@@ -26,25 +18,27 @@ function M.guess_type(filename)
 end
 
 ---@param filename string
+---@param filetypes RektFileConfig
 ---@return string
-function M.make_test_name(filename)
+function M.make_test_name(filename, filetypes)
 	local filetype = M.guess_type(filename)
-	return (string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. test_ext[filetype] .. ".%3"))
+	return (string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. filetypes[filetype] .. ".%3"))
 end
 
 ---@param filename string
+---@param filetypes RektFileConfig
 ---@return string
-function M.make_source_name(filename)
+function M.make_source_name(filename, filetypes)
 	local filetype = M.guess_type(filename)
-	return (string.gsub(filename, "(.*)" .. test_ext[filetype] .. ".(%w+)", "%1.%2"))
+	return (string.gsub(filename, "(.*)" .. filetypes[filetype] .. ".(%w+)", "%1.%2"))
 end
 
----@param config RektConfig
 ---@param file string
-function M.edit_file(config, file)
-	if config.open == "horizontal" then
+---@param open RektOpenType
+function M.edit_file(file, open)
+	if open == "horizontal" then
 		vim.cmd.split()
-	elseif config.open == "vertical" then
+	elseif open == "vertical" then
 		vim.cmd.vsplit()
 	end
 
