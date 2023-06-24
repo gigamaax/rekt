@@ -22,11 +22,11 @@ The default behavior is to open new buffers vertically
 {
 	open = "vertical",
 	filetypes = {
-		go = "_test",
-		javascript = ".spec",
-		lua = ".test",
-		typescript = ".spec",
-		typescriptreact = ".spec",
+		go = { suffix = "_test", },
+		js = { suffix = ".spec", },
+		lua = { suffix = ".test", },
+		ts = { suffix = ".spec", },
+		tsx = { suffix = ".spec", }
 	},
 }
 ```

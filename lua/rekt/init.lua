@@ -1,20 +1,23 @@
 local utils = require("rekt.utils")
 
----@alias RektOpenType "buffer" | "horizontal" | "vertical"
+---@class RektFileConfig: { [string]: RektFileOpt }
 
----@class RektFileConfig: { [string]: string }
+---@class RektFileOpt
+---@field suffix string The value used to determine the test file name
+
+---@alias RektOpenOpt "buffer" | "horizontal" | "vertical"
 
 ---@class RektConfig
 local default_config = {
-	---@type RektOpenType
+	---@type RektOpenOpt
 	open = "vertical",
 	---@type RektFileConfig
 	filetypes = {
-		go = "_test",
-		javascript = ".spec",
-		lua = ".test",
-		typescript = ".spec",
-		typescriptreact = ".spec", -- this is weird
+		go = { suffix = "_test", },
+		js = { suffix = ".spec", },
+		lua = { suffix = ".test", },
+		ts = { suffix = ".spec", },
+		tsx = { suffix = ".spec", }
 	},
 }
 

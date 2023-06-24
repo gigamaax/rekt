@@ -1,14 +1,9 @@
 local spy = require("luassert.spy")
 
+local rekt = require("rekt")
 local utils = require("rekt.utils")
 
-local filetypes = {
-	go = "_test",
-	javascript = ".spec",
-	lua = ".test",
-	typescript = ".spec",
-	typescriptreact = ".spec",
-}
+local filetypes = rekt.config.filetypes
 
 describe("utils", function()
 	it("can rewrite the file name with test suffix", function()

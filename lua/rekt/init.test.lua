@@ -11,11 +11,11 @@ describe("config", function()
 				{
 					open = "vertical",
 					filetypes = {
-						go = "_test",
-						javascript = ".spec",
-						lua = ".test",
-						typescript = ".spec",
-						typescriptreact = ".spec",
+						go = { suffix = "_test", },
+						js = { suffix = ".spec", },
+						lua = { suffix = ".test", },
+						ts = { suffix = ".spec", },
+						tsx = { suffix = ".spec", },
 					},
 				}
 		)
@@ -28,11 +28,11 @@ describe("config", function()
 				{
 					open = "buffer",
 					filetypes = {
-						go = "_test",
-						javascript = ".spec",
-						lua = ".test",
-						typescript = ".spec",
-						typescriptreact = ".spec",
+						go = { suffix = "_test", },
+						js = { suffix = ".spec", },
+						lua = { suffix = ".test", },
+						ts = { suffix = ".spec", },
+						tsx = { suffix = ".spec", },
 					},
 				}
 		)
@@ -40,8 +40,8 @@ describe("config", function()
 		rekt.setup({ open = "horizontal", filetypes = {}, })
 		assert.are_same(rekt.config, { open = "horizontal", filetypes = {}, })
 
-		rekt.setup({ open = "vertical", filetypes = { typescript = ".test", }, })
-		assert.are_same(rekt.config, { open = "vertical", filetypes = { typescript = ".test", }, })
+		rekt.setup({ open = "vertical", filetypes = { ts = { suffix = ".test", }, }, })
+		assert.are_same(rekt.config, { open = "vertical", filetypes = { ts = { suffix = ".test", }, }, })
 	end)
 
 	describe("opening test files", function()

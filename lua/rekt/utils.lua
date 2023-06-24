@@ -1,40 +1,34 @@
-local extratypes = {
-	ts = "typescript",
-	tsx = "typescript",
-}
-
 local M = {}
 
 ---@param filename string
 ---@return string
 function M.guess_type(filename)
-	local type = vim.filetype.match({ filename = filename, })
-	if type ~= "" and type ~= nil then
-		return type
-	end
-
 	local tokens = vim.split(filename, ".", { plain = true, trimempty = true, })
-	return extratypes[tokens[#tokens]]
+	return tokens[#tokens]
 end
 
 ---@param filename string
 ---@param filetypes RektFileConfig
 ---@return string
 function M.make_test_name(filename, filetypes)
-	local filetype = M.guess_type(filename)
-	return (string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. filetypes[filetype] .. ".%3"))
+	local type = M.guess_type(filename)
+	local config = filetypes[type]
+
+	return (string.gsub(filename, "(.*)(%.)(%w+)", "%1" .. config.suffix .. ".%3"))
 end
 
 ---@param filename string
 ---@param filetypes RektFileConfig
 ---@return string
 function M.make_source_name(filename, filetypes)
-	local filetype = M.guess_type(filename)
-	return (string.gsub(filename, "(.*)" .. filetypes[filetype] .. ".(%w+)", "%1.%2"))
+	local type = M.guess_type(filename)
+	local config = filetypes[type]
+
+	return (string.gsub(filename, "(.*)" .. config.suffix .. ".(%w+)", "%1.%2"))
 end
 
 ---@param file string
----@param open RektOpenType
+---@param open RektOpenOpt
 function M.edit_file(file, open)
 	if open == "horizontal" then
 		vim.cmd.split()
