@@ -20,7 +20,14 @@ The default behavior is to open new buffers vertically
 ### Default options
 ```lua
 {
-	open = "vsplit" -- @type "buffer" | "horizontal" | "vertical"
+	open = "vertical",
+	filetypes = {
+		go = "_test",
+		javascript = ".spec",
+		lua = ".test",
+		typescript = ".spec",
+		typescriptreact = ".spec",
+	},
 }
 ```
 
