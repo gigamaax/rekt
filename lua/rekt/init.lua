@@ -31,7 +31,7 @@ function M.setup(opt)
 	M.config = vim.tbl_extend("force", default_config, opt or {})
 end
 
----@param from_path string The path to start searching deafults to same directory
+---@param from_path? string The path to start searching deafults to same directory
 function M.open_test_file(from_path)
 	local filename = vim.api.nvim_buf_get_name(0)
 	local basename = vim.fs.basename(filename)
@@ -42,7 +42,7 @@ function M.open_test_file(from_path)
 	utils.edit_file(edit_file, M.config.open)
 end
 
----@param from_path string The path to start searching deafults to same directory
+---@param from_path? string The path to start searching deafults to same directory
 function M.open_source_file(from_path)
 	local filename = vim.api.nvim_buf_get_name(0)
 	local basename = vim.fs.basename(filename)

@@ -1,3 +1,4 @@
+local stub = require("luassert.stub")
 local spy = require("luassert.spy")
 
 local rekt = require("rekt")
@@ -47,12 +48,12 @@ describe("config", function()
 	describe("opening test files", function()
 		local edit_file
 		before_each(function()
+			vim.cmd.edit("fake.lua")
 			edit_file = spy.on(utils, "edit_file")
 		end)
 
 		it("opens in a new buffer", function()
 			rekt.setup({ open = "buffer", })
-			vim.cmd.edit("fake.lua")
 			rekt.open_test_file("fake_path")
 
 			assert.spy(edit_file).was.called_with("fake_path/fake.test.lua", "buffer")
@@ -60,7 +61,6 @@ describe("config", function()
 
 		it("opens in a horizontal split", function()
 			rekt.setup({ open = "horizontal", })
-			vim.cmd.edit("fake.lua")
 			rekt.open_test_file("fake_path")
 
 			assert.spy(edit_file).was.called_with("fake_path/fake.test.lua", "horizontal")
@@ -68,7 +68,6 @@ describe("config", function()
 
 		it("opens in a vertical split", function()
 			rekt.setup({ open = "vertical", })
-			vim.cmd.edit("fake.lua")
 			rekt.open_test_file("fake_path")
 
 			assert.spy(edit_file).was.called_with("fake_path/fake.test.lua", "vertical")
