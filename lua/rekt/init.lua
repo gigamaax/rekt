@@ -6,6 +6,7 @@ local utils = require("rekt.utils")
 ---@field suffix string The value used to determine the test file name
 
 ---@alias RektOpenOpt "buffer" | "horizontal" | "vertical"
+---@alias RektSearchOpt "root" | "sibling"
 
 ---@class RektConfig
 local default_config = {
@@ -17,7 +18,7 @@ local default_config = {
 		js = { suffix = ".spec", },
 		lua = { suffix = ".test", },
 		ts = { suffix = ".spec", },
-		tsx = { suffix = ".spec", }
+		tsx = { suffix = ".spec", },
 	},
 }
 
